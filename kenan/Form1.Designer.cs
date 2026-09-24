@@ -28,71 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            button2 = new Button();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
+            txtUsername = new TextBox();
+            btnCheck = new Button();
+            lblMessage = new Label();
             SuspendLayout();
             // 
-            // button1
+            // txtUsername
             // 
-            button1.Location = new Point(12, 208);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 29);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            txtUsername.Location = new Point(80, 67);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(125, 27);
+            txtUsername.TabIndex = 0;
             // 
-            // textBox1
+            // btnCheck
             // 
-            textBox1.Location = new Point(12, 30);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(125, 27);
-            textBox1.TabIndex = 1;
+            btnCheck.Location = new Point(270, 67);
+            btnCheck.Name = "btnCheck";
+            btnCheck.Size = new Size(94, 29);
+            btnCheck.TabIndex = 1;
+            btnCheck.Text = "yoxla";
+            btnCheck.UseVisualStyleBackColor = true;
+            btnCheck.Click += btnCheck_Click;
             // 
-            // textBox2
+            // lblMessage
             // 
-            textBox2.Location = new Point(12, 131);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(125, 27);
-            textBox2.TabIndex = 2;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(217, 208);
-            button2.Name = "button2";
-            button2.Size = new Size(94, 29);
-            button2.TabIndex = 3;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // textBox3
-            // 
-            textBox3.Location = new Point(217, 30);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(125, 27);
-            textBox3.TabIndex = 4;
-            // 
-            // textBox4
-            // 
-            textBox4.Location = new Point(217, 131);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(125, 27);
-            textBox4.TabIndex = 5;
+            lblMessage.AutoSize = true;
+            lblMessage.Location = new Point(136, 130);
+            lblMessage.Name = "lblMessage";
+            lblMessage.Size = new Size(0, 20);
+            lblMessage.TabIndex = 2;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(textBox4);
-            Controls.Add(textBox3);
-            Controls.Add(button2);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
-            Controls.Add(button1);
+            Controls.Add(lblMessage);
+            Controls.Add(btnCheck);
+            Controls.Add(txtUsername);
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);
@@ -101,11 +74,8 @@
 
         #endregion
 
-        private Button button1;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private Button button2;
-        private TextBox textBox3;
-        private TextBox textBox4;
+        private TextBox txtUsername;
+        private Button btnCheck;
+        private Label lblMessage;
     }
 }

@@ -1,57 +1,72 @@
 using System;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace kenan
 {
     public partial class Form1 : Form
     {
-        private string registeredUsername = "";
-        private string registeredPassword = "";
-
         public Form1()
         {
             InitializeComponent();
         }
 
-        // button1 (Qeydiyyat düyməsi)
-        private void button1_Click(object sender, EventArgs e)
+        private void btnCheck_Click(object sender, EventArgs e)
         {
-            // textBox1: Yuxarı sol (İstifadəçi adı)
-            // textBox2: Yuxarı sağ (Şifrə)
-            if (string.IsNullOrWhiteSpace(textBox1.Text) || string.IsNullOrWhiteSpace(textBox2.Text))
+            string username = txtUsername.Text;
+
+            if (ValidateUsername(username, out string errorMessage))
             {
-                MessageBox.Show("Lütfən, qeydiyyat üçün istifadəçi adı və şifrəni daxil edin!", "Xəbərdarlıq", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            registeredUsername = textBox1.Text;
-            registeredPassword = textBox2.Text;
-
-            MessageBox.Show("Qeydiyyat uğurla tamamlandı!", "Məlumat", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            textBox1.Clear();
-            textBox2.Clear();
-        }
-
-        // button2 (Daxil ol düyməsi)
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(registeredUsername))
-            {
-                MessageBox.Show("Əvvəlcə qeydiyyatdan keçməlisiniz!", "Xəbərdarlıq", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // textBox3: Aşağı sol (Daxil ol istifadəçi adı)
-            // textBox4: Aşağı sağ (Daxil ol şifrə)
-            if (textBox3.Text == registeredUsername && textBox4.Text == registeredPassword)
-            {
-                MessageBox.Show("Sistemə uğurla daxil oldunuz!", "Uğurlu", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                lblMessage.ForeColor = Color.Green;
+                lblMessage.Text = "İstifadəçi adı uğurla qəbul edildi!";
             }
             else
             {
-                MessageBox.Show("İstifadəçi adı və ya şifrə yanlışdır!", "Xəta", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Text = errorMessage;
             }
+        }
+
+        private bool ValidateUsername(string username, out string errorMessage)
+        {
+            // 1) Minimum 8 simvol
+            if (string.IsNullOrEmpty(username) || username.Length < 8)
+            {
+                errorMessage = "Minimum 8 simvol olmalıdır.";
+                return false;
+            }
+
+            // 5) Rəqəmlə başlamaz
+            if (char.IsDigit(username[0]))
+            {
+                errorMessage = "Rəqəmlə başlaya bilməz.";
+                return false;
+            }
+
+            // 3) Mütləq böyük simvol
+            if (!username.Any(char.IsUpper))
+            {
+                errorMessage = "Ən azı bir böyük hərf olmalıdır.";
+                return false;
+            }
+
+            // 4) Mütləq rəqəm
+            if (!username.Any(char.IsDigit))
+            {
+                errorMessage = "Ən azı bir rəqəm olmalıdır.";
+                return false;
+            }
+
+            // 2) *, boşluq və # simvolları
+            if (!username.Contains('*') || !username.Contains(' ') || !username.Contains('#'))
+            {
+                errorMessage = " '*', '#' və boşluq simvollarının hər biri olmalıdır.";
+                return false;
+            }
+
+            errorMessage = string.Empty;
+            return true;
         }
     }
 }
